@@ -23,10 +23,8 @@ async function bootstrap(): Promise<string> {
   if (isProduction) {
     app.enable('trust proxy');
   }
-
   // Express Middleware
   middleware(app);
-
   app.enableShutdownHooks();
   await app.listen(process.env.PORT || 3000);
 

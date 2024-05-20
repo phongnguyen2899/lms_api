@@ -1,23 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { UserService } from 'src/shared/user';
 
+import { user } from '#entity/user';
 import type { JwtPayload, JwtSign, Payload } from './auth.interface';
-import { User, UserService } from '../shared/user';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwt: JwtService,
-    private user: UserService,
+    private userService: UserService,
     private config: ConfigService,
   ) {}
 
-  public async validateUser(username: string, password: string): Promise<User | null> {
-    const user = await this.user.fetch(username);
+  public async validateUser(username: string, password: string): Promise<user | null> {
+    const entity = await this.userService.fetch(username, password);
 
-    if (user.password === password) {
-      const { password: pass, ...result } = user;
+    if (entity?.password === password) {
+      const { password: pass, ...result } = entity;
       return result;
     }
 
@@ -29,7 +30,7 @@ export class AuthService {
       return false;
     }
 
-    const payload = this.jwt.decode<{ sub: string }>(refreshToken);
+    const payload = this.jwt.decode<{ sub: number }>(refreshToken);
     return payload.sub === data.userId;
   }
 
@@ -56,7 +57,7 @@ export class AuthService {
     }
   }
 
-  private getRefreshToken(sub: string): string {
+  private getRefreshToken(sub: number): string {
     return this.jwt.sign(
       { sub },
       {

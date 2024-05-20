@@ -4,13 +4,13 @@ export interface JwtSign {
 }
 
 export interface JwtPayload {
-  sub: string;
+  sub: number;
   username: string;
   roles: string[];
 }
 
 export interface Payload {
-  userId: string;
+  userId: number;
   username: string;
   roles: string[];
 }

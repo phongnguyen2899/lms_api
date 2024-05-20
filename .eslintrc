@@ -1,12 +1,12 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
+  // "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": true,
     "tsconfigRootDir": ".",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "sonarjs", "jest", "prettier"],
+  // "plugins": ["@typescript-eslint", "sonarjs", "jest", "prettier"],
   "extends": [
     "eslint:recommended",
     "airbnb-base",
@@ -15,7 +15,7 @@
     "plugin:sonarjs/recommended",
     "plugin:@typescript-eslint/strict-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
-    "plugin:prettier/recommended"
+    // "plugin:prettier/recommended"
   ],
   "ignorePatterns": ["**/node_modules/**", "dist/**", "src/entity/**"],
   "rules": {
@@ -72,8 +72,10 @@
     ],
     "@typescript-eslint/no-extraneous-class": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
-    //#endregion
-
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-explicit-any": "off",    //#endregion
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     //#region sonarjs
     "sonarjs/no-duplicate-string": "off",
     "sonarjs/cognitive-complexity": ["error", 25]

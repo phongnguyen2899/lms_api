@@ -16,7 +16,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException('NotFoundUser');
     }
-
-    return { userId: user.id, username: user.name, roles: user.roles };
+    const roleString: string[] = user.roles.map((x) => x.role);
+    return { userId: user.id, username: user.username, roles: roleString };
   }
 }

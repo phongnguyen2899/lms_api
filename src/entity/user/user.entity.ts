@@ -1,13 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { role } from "../role";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("user")
+@Entity("users")
 
 export class user{
     @PrimaryGeneratedColumn({ type: 'int', unsigned: true, name: 'id' })
     id!:number;
 
     @Column('varchar',{nullable:false,length:255,name:'user_name'})
-    username?:string;
+    username:string='';
 
     @Column('varchar',{nullable:false,length:500,name:'password'})
     password?:string;
@@ -17,4 +18,8 @@ export class user{
 
     @Column('varchar',{nullable:false,length:50,name:'phone_number'})
     phone_number?:string;
+
+    @ManyToMany(() => role, (role) => role.users)
+    @JoinTable({name:'user_role'})
+    roles!: role[];
 }

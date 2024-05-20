@@ -3,11 +3,11 @@ import type { Request, Response } from 'express';
 
 import {
   AuthService,
-  LocalLoginGuard,
+  // LocalLoginGuard,
   Payload,
-  AuthenticatedGuard,
+  // AuthenticatedGuard,
   LocalAuthGuard,
-  JwtAuthGuard,
+  // JwtAuthGuard,
   JwtSign,
   JwtVerifyGuard,
 } from '../../auth';
@@ -25,11 +25,11 @@ export class AuthController {
    * need username, password in body
    * skip guard to @Public when using global guard
    */
-  @Post('login')
-  @UseGuards(LocalLoginGuard)
-  public login(@ReqUser() user: Payload): Payload {
-    return user;
-  }
+  // @Post('login')
+  // @UseGuards(LocalLoginGuard)
+  // public login(@ReqUser() user: Payload): Payload {
+  //   return user;
+  // }
 
   @Get('logout')
   public logout(@Req() req: Request, @Res() res: Response): void {
@@ -38,11 +38,11 @@ export class AuthController {
     });
   }
 
-  @Get('check')
-  @UseGuards(AuthenticatedGuard)
-  public check(@ReqUser() user: Payload): Payload {
-    return user;
-  }
+  // @Get('check')
+  // @UseGuards(AuthenticatedGuard)
+  // public check(@ReqUser() user: Payload): Payload {
+  //   return user;
+  // }
 
   /**
    * See test/e2e/jwt-auth.spec.ts
@@ -53,11 +53,11 @@ export class AuthController {
     return this.auth.jwtSign(user);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('jwt/check')
-  public jwtCheck(@ReqUser() user: Payload): Payload {
-    return user;
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Get('jwt/check')
+  // public jwtCheck(@ReqUser() user: Payload): Payload {
+  //   return user;
+  // }
 
   // Only verify is performed without checking the expiration of the access_token.
   @UseGuards(JwtVerifyGuard)

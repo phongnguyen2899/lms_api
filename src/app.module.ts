@@ -12,6 +12,7 @@ import { configuration, loggerOptions } from './config';
 import { SampleModule as DebugSampleModule } from './debug';
 import { GqlModule } from './gql';
 import { SampleModule } from './sample';
+import { LayoutModule } from './layout/layout.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { SampleModule } from './sample';
     CommonModule, // Global
     BaseModule,
     SampleModule,
+    LayoutModule,
     GqlModule,
     DebugSampleModule,
     // Module Router

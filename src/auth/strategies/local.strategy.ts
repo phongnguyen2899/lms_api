@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
@@ -15,6 +15,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const user = await this.auth.validateUser(username, password);
     if (!user) {
       throw new UnauthorizedException('NotFoundUser');
+    }
+    if (user.roles == null) {
+      throw new ForbiddenException('Forbiden');
     }
     const roleString: string[] = user.roles.map((x) => x.role);
     return { userId: user.id, username: user.username, roles: roleString };

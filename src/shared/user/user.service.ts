@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { user } from '#entity/user';
+// import { user } from '../../entity/user';
 
 @Injectable()
 export class UserService {
@@ -14,8 +15,11 @@ export class UserService {
   public async fetch(username: string, password: string): Promise<user | null> {
     return this.users.findOne({
       where: {
-        username,
-        password,
+        username: username,
+        password: password,
+      },
+      relations: {
+        roles: true,
       },
     });
   }

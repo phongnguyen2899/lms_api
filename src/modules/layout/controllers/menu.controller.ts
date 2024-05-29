@@ -1,6 +1,7 @@
 import { Body, Controller, Get, InternalServerErrorException, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { menu } from '#entity/menu';
 import { MenuService } from '../providers';
+import { MenuDto } from '../dto';
 
 @Controller('menu')
 export class MenuController {
@@ -21,8 +22,8 @@ export class MenuController {
     return result;
   }
   @Post('upsert')
-  public async create(@Body() body: menu): Promise<{ id: number }> {
-    const result = await this.menu.upsert(body);
+  public async create(@Body() xx: MenuDto): Promise<{ id: number }> {
+    const result = await this.menu.upsert(xx);
     if (result == null || !result.id) {
       throw new InternalServerErrorException('NotUpsertData');
     }

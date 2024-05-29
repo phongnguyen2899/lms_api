@@ -1,6 +1,7 @@
 import { menu } from '#entity/menu';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { MenuDto } from '../dto';
 
 export class MenuService {
   constructor(
@@ -16,11 +17,7 @@ export class MenuService {
     return this.table.findOneBy({ id });
   }
 
-  public async upsert(menu: menu): Promise<menu | null> {
-    const entity = await this.get(menu.id);
-    if (entity == null) {
-      return null;
-    }
+  public async upsert(menu: MenuDto): Promise<menu | null> {
     return this.table.save(menu);
   }
 }
